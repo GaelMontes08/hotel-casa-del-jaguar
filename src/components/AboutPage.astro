@@ -1,0 +1,211 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { useTranslations } from '@/i18n';
+import { localePath, BOOKING_URL } from '@/i18n/utils';
+import type { Locale } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+const { locale, path } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<Layout locale={locale} title={t.about.title} canonicalPath={path}>
+
+  <!-- ══════════════════════════════════════════
+       ABOUT — 3-column experience section
+  ══════════════════════════════════════════ -->
+  <section class="about-section min-h-screen bg-[#f7f5f1] px-6 sm:px-10 lg:px-16 py-28 flex items-center">
+    <div class="w-full max-w-7xl mx-auto grid lg:grid-cols-[1fr_auto_1fr] gap-12 xl:gap-20 items-center">
+
+      <!-- ─── LEFT: text content ─── -->
+      <div class="flex flex-col gap-8 fade-col" style="--delay:0ms">
+
+        <!-- Label -->
+        <span class="inline-flex items-center gap-2 text-[0.65rem] tracking-[0.3em] uppercase text-stone-400 font-medium">
+          <span class="w-5 h-px bg-stone-300"></span>
+          {t.about.label}
+        </span>
+
+        <!-- Headline -->
+        <h1 class="font-heading text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-semibold text-stone-900">
+          {t.about.headline}
+        </h1>
+
+        <!-- Lead paragraph -->
+        <p class="text-stone-500 text-base sm:text-lg leading-relaxed font-light max-w-sm">
+          {t.about.lead}
+        </p>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-px bg-jaguar-400"></div>
+          <div class="w-2 h-2 rounded-full bg-jaguar-400 opacity-60"></div>
+        </div>
+
+        <!-- Fine print -->
+        <p class="text-stone-400 text-sm font-light italic">
+          {t.about.fine}
+        </p>
+
+      </div>
+
+
+      <!-- ─── CENTER: stacked image cards ─── -->
+      <div class="card-stack-wrapper mx-auto lg:mx-0 fade-col" style="--delay:120ms">
+        <div class="card-stack relative w-[260px] sm:w-[300px] h-[360px] sm:h-[400px]">
+
+          <!-- Card 3 (back) -->
+          <div class="card card-3 absolute inset-0 rounded-[28px] overflow-hidden bg-stone-200 shadow-xl"
+               style="transform:rotate(6deg) translate(16px,8px)">
+            <img src="/images/patio1.webp" alt="" class="w-full h-full object-cover opacity-50" loading="lazy" aria-hidden="true" />
+          </div>
+
+          <!-- Card 2 (mid) -->
+          <div class="card card-2 absolute inset-0 rounded-[28px] overflow-hidden bg-stone-100 shadow-2xl"
+               style="transform:rotate(3deg) translate(8px,4px)">
+            <img src="/images/patio2.webp" alt="" class="w-full h-full object-cover opacity-70" loading="lazy" aria-hidden="true" />
+          </div>
+
+          <!-- Card 1 (front) -->
+          <div class="card card-1 absolute inset-0 rounded-[28px] overflow-hidden shadow-2xl bg-white"
+               style="transform:rotate(0deg)">
+            <img
+              src="/images/patio3.webp"
+              alt={t.about.cardCaption}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <!-- Caption overlay -->
+            <div class="absolute inset-x-0 bottom-0 px-5 py-4"
+                 style="background:linear-gradient(to top,rgba(10,14,10,.72) 0%,transparent 100%)">
+              <p class="text-white text-sm font-medium leading-tight">{t.about.cardCaption}</p>
+              <p class="text-white/60 text-[0.65rem] mt-0.5">{t.about.cardSub}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- ─── RIGHT: supporting text + tags + CTA + connect ─── -->
+      <div class="flex flex-col gap-7 fade-col" style="--delay:240ms">
+
+        <!-- Pill tags -->
+        <div class="flex flex-wrap gap-2">
+          {[t.about.tag1, t.about.tag2, t.about.tag3, t.about.tag4].map((tag) => (
+            <span class="px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-stone-500 text-[0.68rem] tracking-wide shadow-sm">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <!-- Side paragraph -->
+        <p class="text-stone-500 text-base leading-relaxed font-light">
+          {t.about.sideText}
+        </p>
+
+        <!-- CTA -->
+        <a
+          href={localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms')}
+          class="group inline-flex items-center gap-2.5 self-start px-6 py-3 rounded-full bg-stone-900 text-white text-[0.72rem] tracking-widest uppercase font-medium hover:bg-jaguar-600 transition-colors duration-300 shadow-lg shadow-stone-900/20"
+        >
+          {t.about.cta}
+          <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+
+        <!-- Divider -->
+        <div class="w-full h-px bg-stone-200 my-1"></div>
+
+        <!-- Let's connect -->
+        <div>
+          <p class="text-[0.65rem] tracking-[0.25em] uppercase text-stone-400 mb-4">{t.about.connect}</p>
+          <div class="flex items-center gap-3">
+
+            <!-- Booking.com -->
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Booking.com"
+              class="connect-icon w-10 h-10 rounded-full bg-white border border-stone-200 shadow-sm flex items-center justify-center hover:border-jaguar-300 hover:shadow-md transition-all duration-200"
+            >
+              <img src="https://cf.bstatic.com/static/img/favicon/favicon-32x32.png" alt="Booking.com" width="18" height="18" class="rounded-sm" />
+            </a>
+
+            <!-- TripAdvisor -->
+            <a
+              href="https://www.tripadvisor.com/Hotel_Review-g304038-d2239841-Reviews-Casa_del_Jaguar-Iquitos_Loreto_Region.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TripAdvisor"
+              class="connect-icon w-10 h-10 rounded-full bg-white border border-stone-200 shadow-sm flex items-center justify-center hover:border-jaguar-300 hover:shadow-md transition-all duration-200"
+            >
+              <img src="https://static.tacdn.com/img2/favicon/favicon-32x.png" alt="TripAdvisor" width="18" height="18" class="rounded-sm" />
+            </a>
+
+            <!-- Google Maps / Reviews -->
+            <a
+              href="https://www.google.com/maps/place/Casa+del+Jaguar/@-3.7321527,-73.2714277,17z"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Google Reviews"
+              class="connect-icon w-10 h-10 rounded-full bg-white border border-stone-200 shadow-sm flex items-center justify-center hover:border-jaguar-300 hover:shadow-md transition-all duration-200"
+            >
+              <!-- Google "G" icon -->
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+              </svg>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── Fade-in on scroll ── */
+  .fade-col {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease var(--delay, 0ms), transform 0.7s ease var(--delay, 0ms);
+  }
+  .fade-col.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Stacked cards hover ── */
+  .card-stack:hover .card-3 { transform: rotate(8deg) translate(20px, 10px); }
+  .card-stack:hover .card-2 { transform: rotate(4deg) translate(10px, 5px); }
+  .card-stack:hover .card-1 { transform: rotate(-1deg) scale(1.02); box-shadow: 0 32px 64px rgba(0,0,0,0.22); }
+
+  .card { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease; }
+
+  /* ── Connect icon hover ── */
+  .connect-icon { transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+  .connect-icon:hover { transform: translateY(-2px); }
+</style>
+
+<script>
+  // Intersection observer for fade-in columns
+  const cols = document.querySelectorAll<HTMLElement>('.fade-col');
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach((e) => { if (e.isIntersecting) { (e.target as HTMLElement).classList.add('visible'); observer.unobserve(e.target); } }),
+    { threshold: 0.15 }
+  );
+  cols.forEach((el) => observer.observe(el));
+</script>

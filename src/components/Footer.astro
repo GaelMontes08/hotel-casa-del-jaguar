@@ -1,0 +1,115 @@
+---
+import { useTranslations, localePath } from '@/i18n';
+import type { Locale } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-jungle-950 text-stone-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <!-- Brand -->
+    <div>
+      <a href={localePath(locale, '/')} class="inline-block mb-3">
+        <img
+          src="/cj-hotel-logo-white.webp"
+          alt="Hotel Casa del Jaguar"
+          class="h-12 w-auto"
+          width="192"
+          height="48"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+      <p class="text-sm text-stone-400">Iquitos, Loreto, Perú</p>
+    </div>
+
+    <!-- Quick links -->
+    <nav aria-label="Footer navigation">
+      <p class="text-xs uppercase tracking-widest text-stone-500 mb-3">Links</p>
+      <ul class="space-y-2 text-sm">
+        <li><a href={localePath(locale, '/')} class="hover:text-white transition-colors">{t.nav.home}</a></li>
+        <li><a href={localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms')} class="hover:text-white transition-colors">{t.nav.rooms}</a></li>
+        <li><a href={localePath(locale, locale === 'es' ? '/galeria' : '/gallery')} class="hover:text-white transition-colors">{t.nav.gallery}</a></li>
+        <li><a href={localePath(locale, locale === 'es' ? '/nosotros' : '/about')} class="hover:text-white transition-colors">{t.nav.about}</a></li>
+        <li><a href={localePath(locale, locale === 'es' ? '/contacto' : '/contact')} class="hover:text-white transition-colors">{t.nav.contact}</a></li>
+      </ul>
+    </nav>
+
+    <!-- Partners -->
+    <div>
+      <p class="text-xs uppercase tracking-widest text-stone-500 mb-4">{t.footer.partners}</p>
+      <ul class="space-y-5">
+        <li>
+          <a
+            href="https://casadeljaguar.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block opacity-60 hover:opacity-100 transition-opacity"
+          >
+            <img
+              src="/images/partners/cj-holistic-logo-white.webp"
+              alt="Casa del Jaguar Holistic"
+              class="h-8 w-auto"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://ayahuascaiquitos.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block opacity-60 hover:opacity-100 transition-opacity"
+          >
+            <img
+              src="/images/partners/cj-ayahuasca-logo-white.webp"
+              alt="Ayahuasca Iquitos"
+              class="h-8 w-auto"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <p class="text-xs uppercase tracking-widest text-stone-500 mb-3">{t.contact.title}</p>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="mailto:info@hotelcasadeljaguar.com" class="hover:text-white transition-colors">
+            info@hotelcasadeljaguar.com
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.booking.com/hotel/pe/casa-del-jaguar-iquitos.es.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 mt-3 px-4 py-2 rounded-full bg-jaguar-600 text-white text-sm font-semibold hover:bg-jaguar-500 transition-colors"
+          >
+            {t.nav.booking}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-stone-500">
+      <p>© {year} Hotel Casa del Jaguar. {t.footer.rights}</p>
+      <a href={localePath(locale, locale === 'es' ? '/privacidad' : '/privacy')} class="hover:text-stone-300 transition-colors">
+        {t.footer.privacy}
+      </a>
+    </div>
+  </div>
+</footer>

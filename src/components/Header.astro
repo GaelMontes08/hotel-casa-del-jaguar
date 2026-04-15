@@ -1,0 +1,116 @@
+---
+import { useTranslations, localePath, altLocale } from '@/i18n';
+import type { Locale } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+  canonicalPath: string;
+}
+
+const { locale, canonicalPath } = Astro.props;
+const t = useTranslations(locale);
+const alt = altLocale(locale);
+
+const navLinks = [
+  { href: localePath(locale, '/'), label: t.nav.home },
+  { href: localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms'), label: t.nav.rooms },
+  { href: localePath(locale, locale === 'es' ? '/galeria' : '/gallery'), label: t.nav.gallery },
+  { href: localePath(locale, locale === 'es' ? '/nosotros' : '/about'), label: t.nav.about },
+  { href: localePath(locale, locale === 'es' ? '/ubicacion' : '/location'), label: t.nav.location },
+  { href: localePath(locale, locale === 'es' ? '/contacto' : '/contact'), label: t.nav.contact },
+];
+
+const altHref = alt === 'es' ? canonicalPath : `/en${canonicalPath}`;
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <!-- Logo -->
+    <a href={localePath(locale, '/')} class="flex items-center shrink-0" aria-label="Hotel Casa del Jaguar — Inicio">
+      <img
+        src="/cj-hotel-logo-black.webp"
+        alt="Hotel Casa del Jaguar"
+        class="h-10 w-auto"
+        width="160"
+        height="40"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a href={href} class="hover:text-jaguar-600 transition-colors">
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Right side: lang switch + CTA -->
+    <div class="flex items-center gap-3">
+      <a
+        href={altHref}
+        class="hidden sm:inline-flex text-xs font-medium text-stone-400 hover:text-jaguar-600 transition-colors uppercase tracking-wider"
+        hreflang={alt}
+      >
+        {t.nav.langSwitch}
+      </a>
+      <a
+        href="https://www.booking.com/hotel/pe/casa-del-jaguar-iquitos.es.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center px-4 py-2 rounded-full bg-jaguar-600 text-white text-sm font-semibold hover:bg-jaguar-700 transition-colors"
+      >
+        {t.nav.booking}
+      </a>
+    </div>
+
+    <!-- Mobile hamburger (no JS — CSS-only toggle) -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden p-2 rounded-md text-stone-500 hover:text-stone-800 hover:bg-stone-100 transition-colors"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-stone-100 bg-white">
+    <ul class="flex flex-col px-4 py-3 gap-1">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a href={href} class="block py-2 px-2 rounded-md text-stone-700 hover:bg-jaguar-50 hover:text-jaguar-700 transition-colors">
+            {label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2 border-t border-stone-100 mt-1">
+        <a
+          href={altHref}
+          class="block py-2 px-2 text-sm text-stone-400 hover:text-jaguar-600 transition-colors"
+          hreflang={alt}
+        >
+          {t.nav.langSwitch}
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

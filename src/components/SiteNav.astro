@@ -1,0 +1,211 @@
+---
+import { useTranslations } from '@/i18n';
+import { localePath, BOOKING_URL } from '@/i18n/utils';
+import type { Locale } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+  canonicalPath: string;
+  /**
+   * overlay=true  → home page: starts transparent with centre pill glass,
+   *                 transitions to full-width dark glass on scroll.
+   * overlay=false → inner pages: always shows light white glass.
+   */
+  overlay?: boolean;
+}
+
+const { locale, canonicalPath, overlay = false } = Astro.props;
+const t = useTranslations(locale);
+
+const navLinks = [
+  { href: localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms'), label: t.nav.rooms },
+  { href: localePath(locale, locale === 'es' ? '/galeria' : '/gallery'),    label: t.nav.gallery },
+  { href: localePath(locale, locale === 'es' ? '/nosotros' : '/about'),     label: t.nav.about },
+  { href: localePath(locale, locale === 'es' ? '/ubicacion' : '/location'), label: t.nav.location },
+  { href: localePath(locale, locale === 'es' ? '/contacto' : '/contact'),   label: t.nav.contact },
+  { href: localePath(locale, '/faq'),                                        label: t.nav.faq },
+];
+
+const altHref = locale === 'es' ? '/en/' : '/';
+const altLang = locale === 'es' ? 'en' : 'es';
+---
+
+<nav
+  id="site-nav"
+  data-overlay={overlay ? 'true' : 'false'}
+  class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+  aria-label="Main navigation"
+>
+  <div class="flex items-center justify-between gap-4 px-6 sm:px-10 lg:px-14 py-3.5">
+
+    <!-- Logo -->
+    <a href={localePath(locale, '/')} class="shrink-0" aria-label="Casa del Jaguar — Home">
+      {overlay
+        ? <img src="/cj-hotel-logo-white.webp" alt="Hotel Casa del Jaguar" class="h-8 w-auto" width="148" height="36" loading="eager" decoding="async" />
+        : <img src="/cj-hotel-logo-black.webp" alt="Hotel Casa del Jaguar" class="h-8 w-auto" width="148" height="36" loading="eager" decoding="async" />
+      }
+    </a>
+
+    <!-- Desktop links — liquid glass pill (centre only; merged into full nav when scrolled) -->
+    <ul
+      id="nav-pill"
+      class={`hidden md:flex items-center gap-0.5 text-[12px] tracking-widest uppercase px-3 py-2 rounded-2xl transition-all duration-300 ${overlay ? 'text-white' : 'text-stone-700'}`}
+    >
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class={`px-3 py-1.5 rounded-full transition-all duration-200 ${overlay ? 'hover:bg-white/15' : 'hover:bg-black/[0.06] hover:text-stone-900'}`}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Right: lang switch + hamburger -->
+    <div class="flex items-center gap-3">
+      <a
+        href={altHref}
+        hreflang={altLang}
+        title={t.nav.langSwitch}
+        class={`hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.68rem] font-medium tracking-wide transition-all duration-200 ${overlay ? 'text-white/90 hover:bg-white/15 hover:text-white' : 'text-stone-600 hover:bg-black/[0.06] hover:text-stone-900'}`}
+      >
+        <img
+          src={`https://flagcdn.com/20x15/${locale === 'es' ? 'us' : 'pe'}.png`}
+          srcset={`https://flagcdn.com/40x30/${locale === 'es' ? 'us' : 'pe'}.png 2x`}
+          width="20"
+          height="15"
+          alt={altLang.toUpperCase()}
+          class="rounded-[2px] shadow-sm"
+        />
+        <span class="uppercase">{altLang}</span>
+      </a>
+      <button
+        id="nav-menu-btn"
+        class={`md:hidden p-2 rounded-full transition-colors ${overlay ? 'text-white hover:bg-white/15' : 'text-stone-600 hover:bg-black/[0.06]'}`}
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="nav-mobile-menu"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div
+    id="nav-mobile-menu"
+    class="hidden mx-4 mb-2 rounded-2xl overflow-hidden"
+  >
+    <ul class={`flex flex-col px-4 py-3 gap-0.5 text-sm ${overlay ? 'text-white' : 'text-stone-700'}`}>
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class={`block py-2.5 px-3 rounded-xl transition-colors ${overlay ? 'hover:bg-white/15' : 'hover:bg-black/[0.06]'}`}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+</nav>
+
+<style>
+  /* ─────────────────────────────────────────────────────────
+     INNER PAGES (overlay=false)
+     Always show a clean light-glass bar
+  ───────────────────────────────────────────────────────── */
+  #site-nav[data-overlay="false"] {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
+  }
+
+  #site-nav[data-overlay="false"] #nav-mobile-menu {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     HOME PAGE (overlay=true) — AT TOP
+     Only the centre pill has the glass effect
+  ───────────────────────────────────────────────────────── */
+  #site-nav[data-overlay="true"] #nav-pill {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(32px) saturate(1.6);
+    -webkit-backdrop-filter: blur(32px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  #site-nav[data-overlay="true"] #nav-mobile-menu {
+    background: rgba(10, 16, 12, 0.80);
+    backdrop-filter: blur(32px) saturate(1.5);
+    -webkit-backdrop-filter: blur(32px) saturate(1.5);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     HOME PAGE (overlay=true) — SCROLLED
+     Glass border expands from pill to the full nav bar
+  ───────────────────────────────────────────────────────── */
+  #site-nav[data-overlay="true"][data-scrolled] {
+    background: rgba(10, 16, 12, 0.82);
+    backdrop-filter: blur(28px) saturate(1.6);
+    -webkit-backdrop-filter: blur(28px) saturate(1.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  /* Pill loses its own glass once the full nav has glass */
+  #site-nav[data-overlay="false"] #nav-pill,
+  #site-nav[data-overlay="true"][data-scrolled] #nav-pill {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+    box-shadow: none;
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('site-nav');
+
+  // On home (overlay=true): toggle data-scrolled as user scrolls
+  if (nav?.dataset.overlay === 'true') {
+    const update = () => {
+      if (window.scrollY > 60) {
+        nav.dataset.scrolled = '';
+      } else {
+        delete nav.dataset.scrolled;
+      }
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+
+  // Mobile menu toggle
+  const menuBtn  = document.getElementById('nav-menu-btn');
+  const mobileMenu = document.getElementById('nav-mobile-menu');
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.toggle('hidden') === false;
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

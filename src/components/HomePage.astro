@@ -1,0 +1,634 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { useTranslations } from '@/i18n';
+import { localePath, BOOKING_URL } from '@/i18n/utils';
+import type { Locale } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const REVIEWS_URL =
+  'https://www.google.com/maps/place/Casa+del+Jaguar+-+Ayahuasca+Iquitos/@-3.7321527,-73.2714277,17z/data=!4m8!3m7!1s0x91ea1bda8aee0307:0xa55096b6dd3fe6eb!8m2!3d-3.7321581!4d-73.2688528!9m1!1b1!16s%2Fg%2F11y1x9q_z0?hl=es-419&entry=ttu&g_ep=EgoyMDI2MDQxMi4wIKXMDSoASAFQAw%3D%3D';
+
+---
+
+<Layout locale={locale} canonicalPath="/">
+
+  <!-- ════════════════════════════════════════════
+       HERO — full-screen background + overlay nav
+  ════════════════════════════════════════════ -->
+  <section id="hero" class="relative min-h-screen flex flex-col overflow-hidden">
+
+    <!-- Background image (slight scale for parallax room) -->
+    <div id="hero-bg" class="absolute inset-0 will-change-transform" aria-hidden="true">
+      <img
+        src="/images/HD/frontis-hotel.webp"
+        alt=""
+        class="w-full h-full object-cover object-center scale-[1.06]"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </div>
+
+    <!-- Left-heavy gradient overlay -->
+    <div
+      class="absolute inset-0 pointer-events-none"
+      aria-hidden="true"
+      style="background:linear-gradient(105deg,rgba(10,16,12,.93) 0%,rgba(10,16,12,.84) 40%,rgba(10,16,12,.58) 70%,rgba(10,16,12,.28) 100%)"
+    ></div>
+    <!-- Bottom vignette -->
+    <div
+      class="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
+      aria-hidden="true"
+      style="background:linear-gradient(to top,rgba(10,16,12,.70) 0%,transparent 100%)"
+    ></div>
+
+    <!-- Fixed SiteNav sits above (rendered by Layout). Spacer clears the fixed nav height. -->
+    <div class="h-[68px]" aria-hidden="true"></div>
+
+    <!-- ── Main content ── -->
+    <div class="relative z-20 flex-1 flex items-center px-6 sm:px-10 lg:px-16 py-10">
+      <div class="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+
+        <!-- LEFT: copy + CTAs + review card -->
+        <div class="flex flex-col gap-7 max-w-xl">
+
+          <!-- Eyebrow -->
+          <p class="flex items-center gap-3 text-[0.62rem] uppercase tracking-[0.35em] text-jaguar-400 font-bold">
+            <span class="w-6 h-px bg-jaguar-500 shrink-0" aria-hidden="true"></span>
+            Iquitos · Loreto · Perú
+          </p>
+
+          <!-- Headline -->
+          <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl xl:text-[3.4rem] font-semibold leading-[1.1] text-white">
+            {t.home.hero.tagline}
+          </h1>
+
+          <!-- Gold rule -->
+          <div class="w-10 h-px bg-jaguar-500" aria-hidden="true"></div>
+
+          <!-- Subtext -->
+          <p class="text-white/90 text-sm sm:text-base leading-relaxed font-light max-w-sm">
+            {t.home.hero.subtext}
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-3">
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-jaguar-500 text-white text-[0.72rem] tracking-widest uppercase font-medium hover:bg-jaguar-400 transition-all duration-300 shadow-xl shadow-black/30"
+            >
+              {t.home.hero.ctaBooking}
+              <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a
+              href={localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms')}
+              class="inline-flex items-center px-7 py-3.5 rounded-full border border-white/25 text-white text-[0.72rem] tracking-widest uppercase font-light hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
+            >
+              {t.home.hero.cta}
+            </a>
+          </div>
+
+          <!-- Google reviews card (glassmorphism) -->
+          <a
+            href={REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group w-fit flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-300"
+          >
+            <!-- Avatar stack -->
+            <div class="flex -space-x-2 shrink-0">
+              {['/images/reviews/diego-reuch-borbor.webp', '/images/reviews/stella-palomares.webp', '/images/reviews/victor-alfonso-vazquez-zapata.webp'].map((src) => (
+                <div class="w-7 h-7 rounded-full ring-2 ring-white/20 overflow-hidden bg-jungle-800">
+                  <img src={src} alt="" class="w-full h-full object-cover" loading="lazy" aria-hidden="true" />
+                </div>
+              ))}
+            </div>
+            <div>
+              <p class="text-white text-xs font-medium leading-tight">
+                40+ {t.home.hero.reviewLabel}
+              </p>
+              <p class="flex items-center gap-1 text-jaguar-400 text-[0.65rem] mt-0.5">
+                <span aria-hidden="true">★★★★★</span>
+                <span class="text-white/70 group-hover:text-white transition-colors">
+                  {t.home.hero.reviewLink} ↗
+                </span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <!-- RIGHT: preview card + stats (desktop only) -->
+        <div class="hidden lg:flex flex-col items-end gap-5">
+
+          <!-- Interior preview card -->
+          <div class="relative w-72 xl:w-80 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/50">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src="/images/habitación-simple-doble.webp"
+                alt={t.home.hero.previewAlt}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="flex items-center justify-between px-4 py-3">
+              <div>
+                <p class="text-white text-xs font-medium leading-tight">{t.home.hero.previewLabel}</p>
+                <p class="text-white/70 text-[0.62rem] mt-0.5">{t.home.hero.previewSub}</p>
+              </div>
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-full bg-jaguar-500 text-white text-[0.6rem] tracking-widest uppercase hover:bg-jaguar-400 transition-colors"
+              >
+                {t.nav.booking}
+              </a>
+            </div>
+          </div>
+
+          <!-- Stats row (glassmorphism pill) -->
+          <div class="flex items-center w-72 xl:w-80 px-6 py-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 shadow-xl shadow-black/30">
+            <div class="flex-1 text-center border-r border-white/10 pr-6">
+              <p class="font-heading text-2xl text-jaguar-400 font-semibold">{t.home.hero.stat1Value}</p>
+              <p class="text-white/80 text-[0.6rem] uppercase tracking-widest mt-0.5">{t.home.hero.stat1Label}</p>
+            </div>
+            <div class="flex-1 text-center pl-6">
+              <p class="font-heading text-2xl text-jaguar-400 font-semibold">{t.home.hero.stat2Value}</p>
+              <p class="text-white/80 text-[0.6rem] uppercase tracking-widest mt-0.5">{t.home.hero.stat2Label}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="relative z-20 flex flex-col items-center pb-8 gap-2" aria-hidden="true">
+      <span class="text-[0.58rem] uppercase tracking-[0.3em] text-white/30">Scroll</span>
+      <div class="w-px h-8 bg-gradient-to-b from-white/30 to-transparent"></div>
+    </div>
+
+  </section>
+
+  <!-- ── Intro / Brand statement ── -->
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-[20px] uppercase tracking-[0.3em] text-jaguar-500 mb-5">{t.home.intro.title}</p>
+      <p class="font-heading text-[40px] sm:text-3xl text-jungle-900 leading-relaxed font-semibold">
+        {t.home.intro.body}
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ABOUT / EXPERIENCE — 3-column section
+  ══════════════════════════════════════════ -->
+  <section class="bg-[#f7f5f1] px-6 sm:px-10 lg:px-16 py-28 overflow-hidden">
+    <div class="w-full max-w-7xl mx-auto grid lg:grid-cols-[1fr_auto_1fr] gap-12 xl:gap-20 items-center">
+
+      <!-- ─── LEFT: text content ─── -->
+      <div class="flex flex-col gap-8 home-fade-col" style="--delay:0ms">
+        <span class="inline-flex items-center gap-2 text-[0.65rem] tracking-[0.3em] uppercase text-stone-400 font-medium">
+          <span class="w-5 h-px bg-stone-300"></span>
+          {t.about.label}
+        </span>
+        <h2 class="font-heading text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-semibold text-stone-900">
+          {t.about.headline}
+        </h2>
+        <p class="text-stone-500 text-base sm:text-lg leading-relaxed font-light max-w-sm">
+          {t.about.lead}
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-px bg-jaguar-400"></div>
+          <div class="w-2 h-2 rounded-full bg-jaguar-400 opacity-60"></div>
+        </div>
+        <p class="text-stone-400 text-sm font-light italic">{t.about.fine}</p>
+      </div>
+
+      <!-- ─── CENTER: stacked image cards ─── -->
+      <div class="mx-auto lg:mx-0 home-fade-col" style="--delay:120ms">
+        <div class="home-card-stack relative w-[260px] sm:w-[300px] h-[360px] sm:h-[400px]">
+          <div class="hcard hcard-3 absolute inset-0 rounded-[28px] overflow-hidden bg-stone-200 shadow-xl"
+               style="transform:rotate(6deg) translate(16px,8px)">
+            <img src="/images/patio1.webp" alt="" class="w-full h-full object-cover opacity-50" loading="lazy" aria-hidden="true" />
+          </div>
+          <div class="hcard hcard-2 absolute inset-0 rounded-[28px] overflow-hidden bg-stone-100 shadow-2xl"
+               style="transform:rotate(3deg) translate(8px,4px)">
+            <img src="/images/patio2.webp" alt="" class="w-full h-full object-cover opacity-70" loading="lazy" aria-hidden="true" />
+          </div>
+          <div class="hcard hcard-1 absolute inset-0 rounded-[28px] overflow-hidden shadow-2xl bg-white">
+            <img src="/images/patio3.webp" alt={t.about.cardCaption} class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <div class="absolute inset-x-0 bottom-0 px-5 py-4"
+                 style="background:linear-gradient(to top,rgba(10,14,10,.72) 0%,transparent 100%)">
+              <p class="text-white text-sm font-medium leading-tight">{t.about.cardCaption}</p>
+              <p class="text-white/60 text-[0.65rem] mt-0.5">{t.about.cardSub}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── RIGHT: tags + text + CTA + connect ─── -->
+      <div class="flex flex-col gap-7 home-fade-col" style="--delay:240ms">
+        <div class="flex flex-wrap gap-2">
+          {[t.about.tag1, t.about.tag2, t.about.tag3, t.about.tag4].map((tag) => (
+            <span class="px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-stone-500 text-[0.68rem] tracking-wide shadow-sm">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <p class="text-stone-500 text-base leading-relaxed font-light">{t.about.sideText}</p>
+        <a
+          href={localePath(locale, locale === 'es' ? '/nosotros' : '/about')}
+          class="group inline-flex items-center gap-2.5 self-start px-6 py-3 rounded-full bg-stone-900 text-white text-[0.72rem] tracking-widest uppercase font-medium hover:bg-jaguar-600 transition-colors duration-300 shadow-lg shadow-stone-900/20"
+        >
+          {t.about.cta}
+          <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <div class="w-full h-px bg-stone-200"></div>
+        <div>
+          <p class="text-[0.65rem] tracking-[0.25em] uppercase text-stone-400 mb-4">{t.about.connect}</p>
+          <div class="flex items-center gap-3">
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label="Booking.com"
+               class="home-connect-icon w-10 h-10 rounded-full bg-white border border-stone-200 shadow-sm flex items-center justify-center hover:border-jaguar-300 hover:shadow-md transition-all duration-200">
+              <img src="https://cf.bstatic.com/static/img/favicon/favicon-32x32.png" alt="Booking.com" width="18" height="18" class="rounded-sm" />
+            </a>
+            <a href="https://www.tripadvisor.com/Hotel_Review-g304038-d2239841-Reviews-Casa_del_Jaguar-Iquitos_Loreto_Region.html" target="_blank" rel="noopener noreferrer" aria-label="TripAdvisor"
+               class="home-connect-icon w-10 h-10 rounded-full bg-white border border-stone-200 shadow-sm flex items-center justify-center hover:border-jaguar-300 hover:shadow-md transition-all duration-200">
+              <img src="https://static.tacdn.com/img2/favicon/favicon-32x.png" alt="TripAdvisor" width="18" height="18" class="rounded-sm" />
+            </a>
+            <a href="https://www.google.com/maps/place/Casa+del+Jaguar/@-3.7321527,-73.2714277,17z" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews"
+               class="home-connect-icon w-10 h-10 rounded-full bg-white border border-stone-200 shadow-sm flex items-center justify-center hover:border-jaguar-300 hover:shadow-md transition-all duration-200">
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       STORY — typography / emotional section
+  ══════════════════════════════════════ -->
+  <section class="story-section relative bg-white overflow-hidden">
+
+    <!-- Faint ruled lines texture -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.025]"
+         style="background-image:repeating-linear-gradient(0deg,#44403c 0px,#44403c 1px,transparent 1px,transparent 64px);"
+         aria-hidden="true"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-28 lg:py-36">
+
+      <!-- top eyebrow -->
+      <div class="flex items-center gap-3 mb-16 story-reveal" style="--sd:0ms">
+        <span class="w-8 h-px bg-stone-300"></span>
+        <span class="text-[0.62rem] tracking-[0.35em] uppercase text-stone-400">{t.home.story.eyebrow}</span>
+      </div>
+
+      <!-- Two-column: big type LEFT, body copy RIGHT -->
+      <div class="grid lg:grid-cols-[1fr_380px] gap-12 lg:gap-20 items-end">
+
+        <!-- Kinetic headline -->
+        <div>
+          <p class="font-heading font-semibold leading-[1.0] text-stone-900 story-reveal" style="--sd:80ms;font-size:clamp(3rem,8vw,6.5rem)">
+            <span class="story-line block overflow-hidden"><span class="story-word inline-block">{t.home.story.line1}</span></span>
+            <span class="story-line block overflow-hidden"><span class="story-word inline-block text-jaguar-500">{t.home.story.line2}</span></span>
+            <span class="story-line block overflow-hidden"><span class="story-word inline-block">{t.home.story.line3}</span></span>
+          </p>
+
+          <!-- Pull quote -->
+          <p class="mt-8 text-lg sm:text-xl font-heading font-normal text-stone-400 italic story-reveal" style="--sd:200ms">
+            — {t.home.story.pull}
+          </p>
+        </div>
+
+        <!-- Right column: body + stats -->
+        <div class="flex flex-col gap-8 story-reveal" style="--sd:280ms">
+          <p class="text-stone-500 text-base leading-[1.8] font-light">{t.home.story.body1}</p>
+          <p class="text-stone-400 text-sm leading-[1.8] font-light">{t.home.story.body2}</p>
+
+          <!-- Stat trio -->
+          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-stone-100">
+            {[
+              { n: t.home.story.stat1N, l: t.home.story.stat1L },
+              { n: t.home.story.stat2N, l: t.home.story.stat2L },
+              { n: t.home.story.stat3N, l: t.home.story.stat3L },
+            ].map(({ n, l }) => (
+              <div class="flex flex-col gap-1">
+                <span class="font-heading text-2xl font-semibold text-stone-800">{n}</span>
+                <span class="text-[0.62rem] uppercase tracking-[0.2em] text-stone-400 leading-tight">{l}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Full-width quote bar -->
+      <div class="story-reveal mt-20 lg:mt-28 border-t border-stone-100 pt-10" style="--sd:360ms">
+        <p class="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-stone-200 text-center leading-snug select-none"
+           aria-hidden="true">
+          &ldquo;{t.home.story.pull}&rdquo;
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       TESTIMONIALS — split-screen guest stories
+  ══════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-[#0d1410]">
+    <div class="grid lg:grid-cols-[40%_60%] min-h-[680px] lg:min-h-[760px]">
+
+      <!-- ─── LEFT: dark content panel ─── -->
+      <div class="relative flex flex-col justify-between px-8 sm:px-12 py-14 lg:py-16 z-10">
+
+        <!-- Header -->
+        <div class="ts-reveal" style="--td:0ms">
+          <span class="inline-flex items-center gap-2 text-[0.62rem] tracking-[0.35em] uppercase text-white/40 mb-6">
+            <span class="w-5 h-px bg-white/20"></span>
+            {t.home.testimonials.eyebrow}
+          </span>
+          <h2 class="font-heading text-4xl sm:text-5xl lg:text-[3.2rem] font-semibold text-white leading-[1.1]">
+            {t.home.testimonials.headline}
+          </h2>
+          <!-- 5 stars -->
+          <div class="flex gap-1 mt-5">
+            {Array.from({length:5}).map(() => (
+              <svg class="w-4 h-4 text-jaguar-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            ))}
+          </div>
+        </div>
+
+        <!-- Featured testimonial -->
+        <div class="ts-reveal my-8 lg:my-10" style="--td:120ms">
+          <blockquote>
+            <p class="font-heading text-xl sm:text-2xl font-semibold text-white leading-snug mb-5">
+              &ldquo;{t.home.testimonials.featuredTitle}&rdquo;
+            </p>
+            <p class="text-white/70 text-base leading-[1.9] font-light">
+              {t.home.testimonials.featuredBody}
+            </p>
+          </blockquote>
+
+          <!-- Author -->
+          <div class="flex items-center gap-3.5 mt-7">
+            
+            <div>
+              <p class="text-white text-xs font-semibold tracking-widest">{t.home.testimonials.authorName}</p>
+              <p class="text-white/40 text-[0.65rem] mt-0.5">{t.home.testimonials.authorSub}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thumbnail row -->
+        <div class="ts-reveal flex gap-3" style="--td:220ms">
+          {[
+            '/images/patio3.webp',
+            '/images/sala.webp',
+            '/images/maloca.webp',
+          ].map((src, i) => (
+            <div class={`ts-thumb relative overflow-hidden rounded-2xl flex-1 aspect-[3/2] bg-white/5 cursor-pointer ${i === 0 ? 'ring-2 ring-jaguar-400' : ''}`}>
+              <img src={src} alt="" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" aria-hidden="true" />
+              {i !== 0 && <div class="absolute inset-0 bg-black/40"></div>}
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      <!-- ─── RIGHT: image panel (contained, rounded) ─── -->
+      <div class="relative flex items-center justify-center p-6 lg:p-10 bg-[#0d1410] min-h-[420px] lg:min-h-0">
+
+        <!-- Contained image with rounded corners -->
+        <div class="relative w-full h-full overflow-hidden rounded-3xl shadow-2xl shadow-black/60">
+          <div id="ts-img-wrap" class="absolute inset-0 scale-[1.06] will-change-transform">
+            <img
+              src="/images/habitaci%C3%B3n-simple-doble3.webp"
+              alt={t.home.testimonials.imgAlt}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+        <!-- Floating amenity tags -->
+        <div class="absolute top-8 right-6 flex flex-col gap-2 ts-reveal" style="--td:300ms">
+          {[
+            t.home.testimonials.tag1,
+            t.home.testimonials.tag2,
+            t.home.testimonials.tag3,
+            t.home.testimonials.tag4,
+            t.home.testimonials.tag5,
+          ].map((tag, i) => (
+            <span
+              class="self-end inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.65rem] font-medium tracking-wide text-white backdrop-blur-md border border-white/20 shadow-lg"
+              style={`background:rgba(10,16,12,${0.55 + i * 0.04});transition-delay:${300 + i * 60}ms`}
+            >
+              <span class="w-2.5 h-2.5 rounded-full bg-jaguar-400 shrink-0"></span>
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <!-- Bottom: Google reviews badge -->
+        <a
+          href={REVIEWS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ts-reveal absolute bottom-6 right-6 flex items-center gap-3 px-4 py-3 rounded-2xl backdrop-blur-md border border-white/15 hover:border-white/30 transition-all duration-300"
+          style="background:rgba(10,16,12,0.65); --td:380ms"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" class="shrink-0">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+          </svg>
+          <div>
+            <div class="flex gap-0.5 mb-0.5">
+              {Array.from({length:5}).map(() => (
+                <svg class="w-3 h-3 text-jaguar-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              ))}
+            </div>
+            <p class="text-white/60 text-[0.6rem] tracking-wide">Google Reviews</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA banner ── -->
+  <section class="py-24 px-4 bg-jungle-950">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-[0.62rem] uppercase tracking-[0.3em] text-jaguar-500 mb-5">{t.booking.title}</p>
+      <h2 class="font-heading text-3xl sm:text-4xl font-semibold text-white mb-4">
+        {t.booking.subtitle}
+      </h2>
+      <p class="text-jungle-400 text-sm mb-10 font-light">{t.booking.body}</p>
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-jaguar-500 text-white font-medium tracking-widest uppercase text-xs hover:bg-jaguar-400 transition-colors duration-300 shadow-xl shadow-black/30"
+      >
+        {t.booking.cta}
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+
+
+</Layout>
+
+<style>
+  /* ── About section: fade-in columns ── */
+  .home-fade-col {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease var(--delay, 0ms), transform 0.7s ease var(--delay, 0ms);
+  }
+  .home-fade-col.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── About section: stacked cards hover ── */
+  .home-card-stack:hover .hcard-3 { transform: rotate(8deg) translate(20px, 10px); }
+  .home-card-stack:hover .hcard-2 { transform: rotate(4deg) translate(10px, 5px); }
+  .home-card-stack:hover .hcard-1 { transform: rotate(-1deg) scale(1.02); box-shadow: 0 32px 64px rgba(0,0,0,0.22); }
+
+  .hcard { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease; }
+
+  /* ── Connect icons ── */
+  .home-connect-icon { transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+  .home-connect-icon:hover { transform: translateY(-2px); }
+
+  /* ── Testimonials: reveal ── */
+  .ts-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.75s ease var(--td, 0ms), transform 0.75s ease var(--td, 0ms);
+  }
+  .ts-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Thumbnail active ring */
+  .ts-thumb { transition: ring 0.2s; }
+
+  /* ── Story section: generic reveal ── */
+  .story-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease var(--sd, 0ms), transform 0.8s ease var(--sd, 0ms);
+  }
+  .story-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Story section: line-mask slide-up per word ── */
+  .story-word {
+    transform: translateY(110%);
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--sd, 80ms);
+  }
+  .story-reveal.visible .story-word {
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  // Subtle parallax on scroll
+  const heroBg = document.getElementById('hero-bg');
+  if (heroBg && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroBg.style.transform = `translateY(${y * 0.25}px)`;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Fade-in columns in the About section
+  const cols = document.querySelectorAll<HTMLElement>('.home-fade-col');
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.15 }
+  );
+  cols.forEach((el) => observer.observe(el));
+
+  // Story section reveals
+  const reveals = document.querySelectorAll<HTMLElement>('.story-reveal');
+  const storyObs = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).classList.add('visible');
+        storyObs.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.2 }
+  );
+  reveals.forEach((el) => storyObs.observe(el));
+
+  // Testimonials reveals
+  const tsReveals = document.querySelectorAll<HTMLElement>('.ts-reveal');
+  const tsObs = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).classList.add('visible');
+        tsObs.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.15 }
+  );
+  tsReveals.forEach((el) => tsObs.observe(el));
+
+  // Testimonials image subtle parallax
+  const tsImg = document.getElementById('ts-img-wrap');
+  if (tsImg && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    const onScroll = () => {
+      const rect = tsImg.closest('section')!.getBoundingClientRect();
+      const progress = -rect.top / (window.innerHeight + rect.height);
+      if (progress > -0.2 && progress < 1.2) {
+        tsImg.style.transform = `scale(1.06) translateY(${progress * 30}px)`;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Mobile menu toggle
+</script>
