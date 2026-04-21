@@ -494,6 +494,227 @@ const REVIEWS_URL =
     </div>
   </section>
 
+  <!-- ── Additional Benefits ── -->
+  <section class="py-24 lg:py-36 px-4 bg-[#faf8f4] overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Label -->
+      <p class="bene-reveal text-[0.6rem] uppercase tracking-[0.3em] text-stone-400 mb-16 lg:mb-24" style="--bd:0ms">
+        {t.home.benefits.label}
+      </p>
+
+      <!-- Top row: intro block · headline · stacked cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-14 lg:gap-10 items-center mb-14 lg:mb-20">
+
+        <!-- Left: image card + intro text -->
+        <div class="bene-reveal flex flex-col sm:flex-row lg:flex-col items-start gap-6" style="--bd:80ms">
+          <div class="-rotate-2 overflow-hidden rounded-2xl shadow-xl w-full sm:w-52 lg:w-[18rem] shrink-0">
+            <img
+              src="/images/patio.webp"
+              alt={t.home.benefits.cardBnB}
+              class="w-full aspect-[4/3] object-cover"
+              loading="lazy"
+            />
+            <div class="bg-white px-4 py-2.5 border-t border-stone-100">
+              <p class="text-[0.7rem] font-semibold uppercase tracking-widest text-stone-600">{t.home.benefits.cardBnB}</p>
+            </div>
+          </div>
+          <p class="text-sm text-stone-500 leading-relaxed max-w-[22ch] lg:max-w-[28ch]">
+            {t.home.benefits.intro}
+          </p>
+        </div>
+
+        <!-- Center: headline -->
+        <div class="bene-reveal text-center lg:px-10 order-first lg:order-none" style="--bd:160ms">
+          <h2
+            class="font-heading font-light text-stone-800 leading-[1.08] whitespace-nowrap"
+            style="font-size: clamp(2.8rem, 5.5vw, 5.2rem)"
+          >
+            {t.home.benefits.headline1}<br/>
+            {t.home.benefits.headline2}&nbsp;<em class="font-semibold not-italic" style="color:#a57728">{t.home.benefits.headlineAccent}</em>
+          </h2>
+        </div>
+
+        <!-- Right: two staggered image cards -->
+        <div class="bene-reveal flex flex-row lg:flex-col items-start lg:items-end gap-5" style="--bd:240ms">
+          <div class="rotate-2 overflow-hidden rounded-2xl shadow-xl w-full sm:w-52 lg:w-[14rem] shrink-0">
+            <div class="relative">
+              <img
+                src="/images/cocina2.webp"
+                alt={t.home.benefits.tagBreakfast}
+                class="w-full aspect-[4/3] object-cover"
+                loading="lazy"
+              />
+              <span class="absolute bottom-2.5 left-2.5 text-[0.6rem] uppercase tracking-widest bg-white/90 backdrop-blur-sm text-stone-700 px-3 py-1 rounded-full font-semibold">
+                {t.home.benefits.tagBreakfast}
+              </span>
+            </div>
+          </div>
+          <div class="-rotate-1 overflow-hidden rounded-2xl shadow-md w-full sm:w-40 lg:w-[11rem] shrink-0 lg:mt-[-2rem]">
+            <div class="relative">
+              <img
+                src="/images/patio2.webp"
+                alt={t.home.benefits.tagPet}
+                class="w-full aspect-square object-cover"
+                loading="lazy"
+              />
+              <span class="absolute bottom-2.5 left-2.5 text-[0.6rem] uppercase tracking-widest bg-white/90 backdrop-blur-sm text-stone-700 px-3 py-1 rounded-full font-semibold">
+                {t.home.benefits.tagPet}
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom row: sala2 · supporting text · maloca -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 items-center">
+
+        <!-- Bottom left -->
+        <div class="bene-reveal -rotate-1" style="--bd:300ms">
+          <div class="overflow-hidden rounded-2xl shadow-lg">
+            <img
+              src="/images/sala2.webp"
+              alt={t.home.benefits.captionSala}
+              class="w-full aspect-[4/3] object-cover"
+              loading="lazy"
+            />
+          </div>
+          <p class="mt-3 text-[0.7rem] uppercase tracking-widest text-stone-400">{t.home.benefits.captionSala}</p>
+        </div>
+
+        <!-- Center: supporting copy -->
+        <div class="bene-reveal text-center" style="--bd:360ms">
+          <p class="text-stone-500 text-sm leading-relaxed mx-auto max-w-[30ch]">
+            {t.home.benefits.supportingText}
+          </p>
+          <div class="mt-6 w-10 h-px bg-jaguar-400 mx-auto opacity-60"></div>
+        </div>
+
+        <!-- Bottom right -->
+        <div class="bene-reveal rotate-1" style="--bd:420ms">
+          <div class="overflow-hidden rounded-2xl shadow-lg">
+            <img
+              src="/images/maloca.webp"
+              alt={t.home.benefits.captionMaloca}
+              class="w-full aspect-[4/3] object-cover"
+              loading="lazy"
+            />
+          </div>
+          <p class="mt-3 text-[0.7rem] uppercase tracking-widest text-stone-400">{t.home.benefits.captionMaloca}</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ── FAQ ── -->
+  <section class="py-24 lg:py-36 px-4 bg-stone-50">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-start">
+
+        <!-- Left: accordion -->
+        <div>
+          <p class="bene-reveal text-[0.6rem] uppercase tracking-[0.3em] text-stone-400 mb-6" style="--bd:0ms">
+            {t.home.faq.label}
+          </p>
+          <h2 class="bene-reveal font-heading text-3xl sm:text-4xl font-semibold text-stone-800 leading-snug mb-10" style="--bd:80ms">
+            {t.home.faq.headline}
+          </h2>
+
+          <!-- Accordion -->
+          <dl class="bene-reveal divide-y divide-stone-200" style="--bd:160ms" id="faq-list">
+            {t.home.faq.items.map((item, i) => (
+              <div class="faq-item" data-index={i}>
+                <dt>
+                  <button
+                    class="faq-btn w-full flex items-center justify-between gap-4 py-5 text-left text-stone-800 font-medium text-[0.95rem] hover:text-jaguar-600 transition-colors duration-200"
+                    aria-expanded="false"
+                  >
+                    <span>{item.q}</span>
+                    <span class="faq-icon shrink-0 w-6 h-6 rounded-full border border-stone-300 flex items-center justify-center text-stone-400 transition-all duration-300">
+                      <svg class="faq-plus w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16M4 12h16"/>
+                      </svg>
+                      <svg class="faq-x w-3 h-3 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                      </svg>
+                    </span>
+                  </button>
+                </dt>
+                <dd class="faq-answer overflow-hidden" style="max-height:0;transition:max-height 0.4s ease">
+                  <p class="pb-5 text-stone-500 text-sm leading-relaxed">{item.a}</p>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <!-- Right: image -->
+        <div class="bene-reveal lg:sticky lg:top-28" style="--bd:240ms">
+          <div class="overflow-hidden rounded-3xl shadow-2xl shadow-stone-300/60">
+            <img
+              src="/images/habitación-simple-doble4.webp"
+              alt={t.home.faq.imgAlt}
+              class="w-full h-full object-cover aspect-[3/4]"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section class="relative min-h-[560px] flex items-center overflow-hidden">
+
+    <!-- Background image (HD) -->
+    <div class="absolute inset-0">
+      <img
+        src="/images/HD/maloca1.jpg"
+        alt=""
+        aria-hidden="true"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+      <!-- gradient: dark-left, lighter-right -->
+      <div class="absolute inset-0" style="background:linear-gradient(to right, rgba(8,18,10,0.90) 0%, rgba(8,18,10,0.72) 55%, rgba(8,18,10,0.40) 100%)"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-4 py-20 lg:py-28">
+      <div class="max-w-xl">
+        <p class="bene-reveal text-[0.6rem] uppercase tracking-[0.3em] text-jaguar-400 mb-6" style="--bd:0ms">{t.home.contact.label}</p>
+        <h2 class="bene-reveal font-heading text-4xl sm:text-5xl lg:text-[3.2rem] font-semibold text-white leading-[1.1] mb-6" style="--bd:80ms">
+          {t.home.contact.headline}
+        </h2>
+        <p class="bene-reveal text-white/65 text-base leading-relaxed mb-10 max-w-[42ch]" style="--bd:160ms">
+          {t.home.contact.body}
+        </p>
+
+        <!-- CTA button -->
+        <div class="bene-reveal" style="--bd:240ms">
+          <a
+            href="mailto:casadeljaguar454@gmail.com"
+            class="inline-flex items-center gap-0 rounded-full overflow-hidden shadow-xl hover:shadow-2xl hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+          >
+            <span class="bg-white text-stone-800 font-medium tracking-widest uppercase text-xs px-7 py-4">
+              {t.home.contact.cta}
+            </span>
+            <span class="flex items-center justify-center w-12 h-12 bg-jungle-800">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── CTA banner ── -->
   <section class="py-24 px-4 bg-jungle-950">
     <div class="max-w-2xl mx-auto text-center">
@@ -576,6 +797,17 @@ const REVIEWS_URL =
   .story-reveal.visible .story-word {
     transform: translateY(0);
   }
+
+  /* ── Benefits section: reveal ── */
+  .bene-reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.85s ease var(--bd, 0ms), transform 0.85s ease var(--bd, 0ms);
+  }
+  .bene-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 
 <script>
@@ -642,6 +874,55 @@ const REVIEWS_URL =
     };
     window.addEventListener('scroll', onScroll, { passive: true });
   }
+
+  // Benefits section reveals
+  const beneReveals = document.querySelectorAll<HTMLElement>('.bene-reveal');
+  const beneObs = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).classList.add('visible');
+        beneObs.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.1 }
+  );
+  beneReveals.forEach((el) => beneObs.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll<HTMLElement>('.faq-item').forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>('.faq-btn')!;
+    const answer = item.querySelector<HTMLElement>('.faq-answer')!;
+    const plus = item.querySelector<SVGElement>('.faq-plus')!;
+    const x = item.querySelector<SVGElement>('.faq-x')!;
+    const icon = item.querySelector<HTMLElement>('.faq-icon')!;
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      // Close all
+      document.querySelectorAll<HTMLElement>('.faq-item').forEach((other) => {
+        const ob = other.querySelector<HTMLButtonElement>('.faq-btn')!;
+        const oa = other.querySelector<HTMLElement>('.faq-answer')!;
+        const op = other.querySelector<SVGElement>('.faq-plus')!;
+        const ox = other.querySelector<SVGElement>('.faq-x')!;
+        const oi = other.querySelector<HTMLElement>('.faq-icon')!;
+        ob.setAttribute('aria-expanded', 'false');
+        oa.style.maxHeight = '0';
+        op.classList.remove('hidden');
+        ox.classList.add('hidden');
+        oi.classList.remove('border-jaguar-400', 'text-jaguar-500');
+        oi.classList.add('border-stone-300', 'text-stone-400');
+      });
+      // Open clicked if it was closed
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        plus.classList.add('hidden');
+        x.classList.remove('hidden');
+        icon.classList.remove('border-stone-300', 'text-stone-400');
+        icon.classList.add('border-jaguar-400', 'text-jaguar-500');
+      }
+    });
+  });
 
   // Mobile menu toggle
 </script>
