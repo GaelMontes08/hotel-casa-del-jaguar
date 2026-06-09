@@ -25,9 +25,9 @@ const REVIEWS_URL =
     <!-- Background image (slight scale for parallax room) -->
     <div id="hero-bg" class="absolute inset-0 will-change-transform" aria-hidden="true">
       <img
-        src="/images/HD/frontis-hotel.webp"
-        alt=""
-        class="w-full h-full object-cover object-center scale-[1.06]"
+        src="/images/HD/hero.webp"
+        alt="Images of the rooms, gardens, and patios of Hotel Casa del Jaguar in Iquitos, Peru"
+        class="w-full h-full object-cover object-center"
         loading="eager"
         decoding="async"
         fetchpriority="high"
@@ -90,7 +90,9 @@ const REVIEWS_URL =
               </svg>
             </a>
             <a
-              href={localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms')}
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               class="inline-flex items-center px-7 py-3.5 rounded-full border border-white/25 text-white text-[0.72rem] tracking-widest uppercase font-light hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
             >
               {t.home.hero.cta}
@@ -247,15 +249,6 @@ const REVIEWS_URL =
           ))}
         </div>
         <p class="text-stone-500 text-base leading-relaxed font-light">{t.about.sideText}</p>
-        <a
-          href={localePath(locale, locale === 'es' ? '/nosotros' : '/about')}
-          class="group inline-flex items-center gap-2.5 self-start px-6 py-3 rounded-full bg-stone-900 text-white text-[0.72rem] tracking-widest uppercase font-medium hover:bg-jaguar-600 transition-colors duration-300 shadow-lg shadow-stone-900/20"
-        >
-          {t.about.cta}
-          <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
         <div class="w-full h-px bg-stone-200"></div>
         <div>
           <p class="text-[0.65rem] tracking-[0.25em] uppercase text-stone-400 mb-4">{t.about.connect}</p>

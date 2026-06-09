@@ -17,14 +17,7 @@ interface Props {
 const { locale, canonicalPath, overlay = false } = Astro.props;
 const t = useTranslations(locale);
 
-const navLinks = [
-  { href: localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms'), label: t.nav.rooms },
-  { href: localePath(locale, locale === 'es' ? '/galeria' : '/gallery'),    label: t.nav.gallery },
-  { href: localePath(locale, locale === 'es' ? '/nosotros' : '/about'),     label: t.nav.about },
-  { href: localePath(locale, locale === 'es' ? '/ubicacion' : '/location'), label: t.nav.location },
-  { href: localePath(locale, locale === 'es' ? '/contacto' : '/contact'),   label: t.nav.contact },
-  { href: localePath(locale, '/faq'),                                        label: t.nav.faq },
-];
+
 
 const altHref = locale === 'es' ? '/en/' : '/';
 const altLang = locale === 'es' ? 'en' : 'es';
@@ -46,22 +39,8 @@ const altLang = locale === 'es' ? 'en' : 'es';
       }
     </a>
 
-    <!-- Desktop links — liquid glass pill (centre only; merged into full nav when scrolled) -->
-    <ul
-      id="nav-pill"
-      class={`hidden md:flex items-center gap-0.5 text-[12px] tracking-widest uppercase px-3 py-2 rounded-2xl transition-all duration-300 ${overlay ? 'text-white' : 'text-stone-700'}`}
-    >
-      {navLinks.map(({ href, label }) => (
-        <li>
-          <a
-            href={href}
-            class={`px-3 py-1.5 rounded-full transition-all duration-200 ${overlay ? 'hover:bg-white/15' : 'hover:bg-black/[0.06] hover:text-stone-900'}`}
-          >
-            {label}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <!-- Desktop links removed (single landing page) -->
+    <span id="nav-pill"></span>
 
     <!-- Right: lang switch + hamburger -->
     <div class="flex items-center gap-3">
@@ -96,24 +75,8 @@ const altLang = locale === 'es' ? 'en' : 'es';
 
   </div>
 
-  <!-- Mobile dropdown -->
-  <div
-    id="nav-mobile-menu"
-    class="hidden mx-4 mb-2 rounded-2xl overflow-hidden"
-  >
-    <ul class={`flex flex-col px-4 py-3 gap-0.5 text-sm ${overlay ? 'text-white' : 'text-stone-700'}`}>
-      {navLinks.map(({ href, label }) => (
-        <li>
-          <a
-            href={href}
-            class={`block py-2.5 px-3 rounded-xl transition-colors ${overlay ? 'hover:bg-white/15' : 'hover:bg-black/[0.06]'}`}
-          >
-            {label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
+  <!-- Mobile dropdown removed (single landing page) -->
+  <div id="nav-mobile-menu" class="hidden"></div>
 
 </nav>
 

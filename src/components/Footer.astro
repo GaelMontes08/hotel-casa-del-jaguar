@@ -35,10 +35,6 @@ const year = new Date().getFullYear();
       <p class="text-xs uppercase tracking-widest text-stone-500 mb-3">Links</p>
       <ul class="space-y-2 text-sm">
         <li><a href={localePath(locale, '/')} class="hover:text-white transition-colors">{t.nav.home}</a></li>
-        <li><a href={localePath(locale, locale === 'es' ? '/habitaciones' : '/rooms')} class="hover:text-white transition-colors">{t.nav.rooms}</a></li>
-        <li><a href={localePath(locale, locale === 'es' ? '/galeria' : '/gallery')} class="hover:text-white transition-colors">{t.nav.gallery}</a></li>
-        <li><a href={localePath(locale, locale === 'es' ? '/nosotros' : '/about')} class="hover:text-white transition-colors">{t.nav.about}</a></li>
-        <li><a href={localePath(locale, locale === 'es' ? '/contacto' : '/contact')} class="hover:text-white transition-colors">{t.nav.contact}</a></li>
       </ul>
     </nav>
 
@@ -107,9 +103,6 @@ const year = new Date().getFullYear();
   <div class="border-t border-stone-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-stone-500">
       <p>© {year} Hotel Casa del Jaguar. {t.footer.rights}</p>
-      <a href={localePath(locale, locale === 'es' ? '/privacidad' : '/privacy')} class="hover:text-stone-300 transition-colors">
-        {t.footer.privacy}
-      </a>
     </div>
   </div>
 </footer>
